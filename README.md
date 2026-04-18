@@ -1,43 +1,64 @@
-# AeroBeat Boxing Feature
+# aerobeat-feature-boxing
 
-This is the official boxing gameplay feature codebase.
+Shared AeroBeat boxing gameplay feature package.
 
-A **Feature** contains the pure gameplay logic for a specific mode (e.g., Boxing, Flow, Dance, Step). It is designed to be modular and plugged into an **Assembly**.
+## GodotEnv development flow
 
-## 📋 Repository Details
+This repo uses the AeroBeat Phase 2 GodotEnv package convention.
 
-*   **Type:** Feature (Gameplay Logic)
-*   **License:** **GNU GPLv3** (Strict Copyleft)
-*   **Dependencies:**
-    *   `aerobeat-core` (Required)
-    *   `aerobeat-vendor-*` (Allowed)
+- Canonical dev/test manifest: `.testbed/addons.jsonc`
+- Installed dev/test addons: `.testbed/addons/`
+- GodotEnv cache: `.testbed/.addons/`
+- Hidden workbench project: `.testbed/project.godot`
+- Repo-local unit tests: `.testbed/tests/`
+- Optional interactive/workbench scenes: `.testbed/scenes/`
 
-## 🚀 Getting Started
+The repo root is treated as the package/published boundary for downstream consumers. Day-to-day development, debugging, and validation happen from the hidden `.testbed/` workbench using the pinned OpenClaw toolchain: Godot `4.6.2 stable standard`.
 
-1.  **Clone your new repo:**
-    ```bash
-    git clone https://github.com/YourOrg/aerobeat-feature-custom.git
-    ```
-2.  **Run Setup:**
-    Initialize the testbed environment.
-    ```bash
-    python setup_dev.py
-    ```
-3.  **Open in Godot:**
-    Import the `project.godot` file located inside the `.testbed/` folder.
+### Restore dev/test dependencies
 
-> **Note:** Features are libraries, not standalone games. We use a "Testbed" project (a minimal Godot project in a hidden folder) to run and debug the feature in isolation.
+From the repo root:
 
-## 🧪 Testing & CI/CD
+```bash
+cd .testbed
+godotenv addons install
+```
 
-This template comes pre-configured with **GUT (Godot Unit Test)** workflows.
+That installs the tagged `aerobeat-core` foundation plus GUT into `.testbed/addons/`.
 
-*   **Local Testing:** Run tests via the "GUT" panel in the Godot Editor (inside the Testbed).
-*   **CI/CD:** A GitHub Action (`.github/workflows/gut_ci.yml`) runs automatically on every push to `main`.
-*   **Requirement:** 100% Code Coverage is enforced.
+### Open the workbench
 
-## 📂 Structure
+From the repo root:
 
-*   `src/` - The actual feature logic (GDScript). This is what gets distributed.
-*   `test/` - Unit tests.
-*   `.testbed/` - A local-only Godot project used to run/debug the feature.
+```bash
+godot --editor --path .testbed
+```
+
+Use this `.testbed/` project as the canonical direct-development and bugfinding surface for boxing work.
+
+### Import smoke check
+
+From the repo root:
+
+```bash
+godot --headless --path .testbed --import
+```
+
+### Run unit tests
+
+From the repo root:
+
+```bash
+godot --headless --path .testbed --script addons/gut/gut_cmdln.gd \
+  -gdir=res://tests \
+  -ginclude_subdirs \
+  -gexit
+```
+
+### Validation notes
+
+- `.testbed/addons.jsonc` is the only committed dev/test dependency contract.
+- The manifest pins `aerobeat-core` to `v0.1.0` and GUT to `main` for the pilot flow.
+- Repo-local unit tests live under `.testbed/tests/`; this package no longer uses a root-level `test/` directory.
+- If interactive workbench scenes are added later, place them under `.testbed/scenes/`.
+- The current package shape is consumed from the repo root (`subfolder: "/"`) for downstream installs.
