@@ -24,7 +24,7 @@ cd .testbed
 godotenv addons install
 ```
 
-That installs the tagged `aerobeat-core` foundation plus GUT into `.testbed/addons/`.
+That restores this repo's current dev/test manifest into `.testbed/addons/`. In the long-term lane model, Feature repos should describe themselves in terms of `aerobeat-feature-core` plus any adjacent contracts they actually consume, especially `aerobeat-content-core` for playable authored content.
 
 ### Open the workbench
 
@@ -58,7 +58,8 @@ godot --headless --path .testbed --script addons/gut/gut_cmdln.gd \
 ### Validation notes
 
 - `.testbed/addons.jsonc` is the only committed dev/test dependency contract.
-- The manifest pins `aerobeat-core` to `v0.1.0` and GUT to `main` for the pilot flow.
+- The current manifest still pins the transition-era `aerobeat-core` package key to `v0.1.0` alongside GUT `main` for the historical pilot bootstrap state. Treat that as bootstrap-state drift, not the canonical long-term repo-boundary story.
+- Canonical lane ownership for live docs is `aerobeat-feature-core`, plus `aerobeat-content-core` when the feature consumes authored playable content.
 - Repo-local unit tests live under `.testbed/tests/`; this package no longer uses a root-level `test/` directory.
 - If interactive workbench scenes are added later, place them under `.testbed/scenes/`.
 - The current package shape is consumed from the repo root (`subfolder: "/"`) for downstream installs.
