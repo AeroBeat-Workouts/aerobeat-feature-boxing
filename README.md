@@ -73,7 +73,7 @@ godot --headless --path .testbed --script addons/gut/gut_cmdln.gd \
 ### Validation notes
 
 - `.testbed/addons.jsonc` is the only committed dev/test dependency contract.
-- The current manifest still carries a minimal pilot-era `aerobeat-core` + GUT bootstrap. Treat that as transitional workbench drift, not the canonical long-term dependency story for an active Boxing feature repo.
+- The current manifest carries a minimal `aerobeat-input-core` + GUT bootstrap for shared input contracts. Treat that as a narrow workbench dependency truth, not the canonical full long-term dependency story for an active Boxing feature repo.
 - Canonical live feature-lane docs and shared runtime contracts belong in `aerobeat-feature-core`, with `aerobeat-content-core` layered in when Boxing consumes authored playable content.
 - Repo-local unit tests live under `.testbed/tests/`; this package no longer uses a root-level `test/` directory.
 - If interactive workbench scenes are added later, place them under `.testbed/scenes/`.
