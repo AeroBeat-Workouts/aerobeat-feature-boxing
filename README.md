@@ -1,6 +1,21 @@
 # aerobeat-feature-boxing
 
-Shared AeroBeat boxing gameplay feature package.
+Current AeroBeat Boxing gameplay feature package.
+
+## Repository status
+
+`aerobeat-feature-boxing` is a retained **active/current** AeroBeat v1 gameplay repo.
+
+The current product truth for this repo is:
+
+- **official gameplay feature:** Boxing
+- **official gameplay input posture:** camera-first
+- **official release order:** PC community first, mobile later, VR later
+- **feature-scope posture:** Boxing remains current; removed peer-era wording for Dance/Step should not be reintroduced here
+
+## Architecture role
+
+This repo owns Boxing-specific gameplay logic and feature-local workbench validation. Shared reusable gameplay/runtime contracts belong in `aerobeat-feature-core`, and authored playable content contracts belong in `aerobeat-content-core` when Boxing consumes them.
 
 ## GodotEnv development flow
 
@@ -24,7 +39,7 @@ cd .testbed
 godotenv addons install
 ```
 
-That restores this repo's current dev/test manifest into `.testbed/addons/`. In the long-term lane model, Feature repos should describe themselves in terms of `aerobeat-feature-core` plus any adjacent contracts they actually consume, especially `aerobeat-content-core` for playable authored content.
+That restores this repo's current dev/test manifest into `.testbed/addons/`. The current manifest is intentionally described as a minimal bootstrap contract, not as the final long-term feature-lane dependency story.
 
 ### Open the workbench
 
@@ -34,7 +49,7 @@ From the repo root:
 godot --editor --path .testbed
 ```
 
-Use this `.testbed/` project as the canonical direct-development and bugfinding surface for boxing work.
+Use this `.testbed/` project as the canonical direct-development and boxing bugfinding surface.
 
 ### Import smoke check
 
@@ -58,8 +73,8 @@ godot --headless --path .testbed --script addons/gut/gut_cmdln.gd \
 ### Validation notes
 
 - `.testbed/addons.jsonc` is the only committed dev/test dependency contract.
-- The current manifest still pins the transition-era `aerobeat-core` package key to `v0.1.0` alongside GUT `main` for the historical pilot bootstrap state. Treat that as bootstrap-state drift, not the canonical long-term repo-boundary story.
-- Canonical lane ownership for live docs is `aerobeat-feature-core`, plus `aerobeat-content-core` when the feature consumes authored playable content.
+- The current manifest still carries a minimal pilot-era `aerobeat-core` + GUT bootstrap. Treat that as transitional workbench drift, not the canonical long-term dependency story for an active Boxing feature repo.
+- Canonical live feature-lane docs and shared runtime contracts belong in `aerobeat-feature-core`, with `aerobeat-content-core` layered in when Boxing consumes authored playable content.
 - Repo-local unit tests live under `.testbed/tests/`; this package no longer uses a root-level `test/` directory.
 - If interactive workbench scenes are added later, place them under `.testbed/scenes/`.
 - The current package shape is consumed from the repo root (`subfolder: "/"`) for downstream installs.
