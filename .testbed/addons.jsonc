@@ -1,14 +1,11 @@
 {
   "$schema": "https://chickensoft.games/schemas/addons.schema.json",
   "addons": {
-    // Minimal current Boxing workbench bootstrap for the retained active v1 feature repo.
-    // This pins the lane-appropriate input core for shared input contracts; do not read it as a catch-all long-term feature-lane dependency story.
     "aerobeat-input-core": {
-      "url": "git@github.com:AeroBeat-Workouts/aerobeat-input-core.git",
-      "checkout": "v0.1.0",
-      "subfolder": "/"
+      "url": "../../aerobeat-input-core",
+      "subfolder": "/",
+      "source": "symlink"
     },
-    // GUT drives the repo-local test suite inside the hidden boxing workbench.
     "gut": {
       "url": "git@github.com:bitwes/Gut.git",
       "checkout": "main",
