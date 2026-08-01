@@ -1,21 +1,21 @@
-# aerobeat-feature-boxing
+# aerobeat-mode-boxing
 
-Current AeroBeat Boxing gameplay feature package.
+Current AeroBeat Boxing gameplay mode package.
 
 ## Repository status
 
-`aerobeat-feature-boxing` is a retained **active/current** AeroBeat v1 gameplay repo.
+`aerobeat-mode-boxing` is a retained **active/current** AeroBeat v1 gameplay mode repo.
 
 The current product truth for this repo is:
 
-- **official gameplay feature:** Boxing
+- **official gameplay mode:** Boxing
 - **official gameplay input posture:** camera-first
 - **official release order:** PC community first, mobile later, VR later
-- **feature-scope posture:** Boxing remains current; removed peer-era wording for Dance/Step should not be reintroduced here
+- **mode-scope posture:** Boxing remains current; removed peer-era wording for Dance/Step should not be reintroduced here
 
 ## Architecture role
 
-This repo owns Boxing-specific gameplay logic and feature-local workbench validation. Shared reusable gameplay/runtime contracts belong in `aerobeat-feature-core`, and authored playable content contracts belong in `aerobeat-content-core` when Boxing consumes them.
+This repo owns Boxing-specific gameplay logic and mode-local workbench validation. Shared reusable gameplay/runtime contracts belong in `aerobeat-mode-core`, and authored playable content contracts belong in `aerobeat-content-core` when Boxing consumes them.
 
 ## GodotEnv development flow
 
@@ -39,7 +39,7 @@ cd .testbed
 godotenv addons install
 ```
 
-That restores this repo's current dev/test manifest into `.testbed/addons/`. The current manifest is intentionally described as a minimal bootstrap contract, not as the final long-term feature-lane dependency story.
+That restores this repo's current dev/test manifest into `.testbed/addons/`. The current manifest is intentionally described as a minimal bootstrap contract, not as the final long-term mode-lane dependency story.
 
 ### Open the workbench
 
@@ -73,8 +73,8 @@ godot --headless --path .testbed --script addons/aerobeat-vendor-godot-unit-test
 ### Validation notes
 
 - `.testbed/addons.jsonc` is the only committed dev/test dependency contract.
-- The current manifest carries a minimal `aerobeat-input-core` + GUT bootstrap for shared input contracts. Treat that as a narrow workbench dependency truth, not the canonical full long-term dependency story for an active Boxing feature repo.
-- Canonical live feature-lane docs and shared runtime contracts belong in `aerobeat-feature-core`, with `aerobeat-content-core` layered in when Boxing consumes authored playable content.
+- The current manifest carries a minimal `aerobeat-input-core` + GUT bootstrap for shared input contracts. Treat that as a narrow workbench dependency truth, not the canonical full long-term dependency story for an active Boxing mode repo.
+- Canonical live mode-lane docs and shared runtime contracts belong in `aerobeat-mode-core`, with `aerobeat-content-core` layered in when Boxing consumes authored playable content.
 - Repo-local unit tests live under `.testbed/tests/`; this package no longer uses a root-level `test/` directory.
 - If interactive workbench scenes are added later, place them under `.testbed/scenes/`.
 - The current package shape is consumed from the repo root (`subfolder: "/"`) for downstream installs.
