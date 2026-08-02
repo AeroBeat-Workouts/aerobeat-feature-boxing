@@ -17,6 +17,12 @@ The current product truth for this repo is:
 
 This repo owns Boxing-specific gameplay logic and mode-local workbench validation. Shared reusable gameplay/runtime contracts belong in `aerobeat-mode-core`, and authored playable content contracts belong in `aerobeat-content-core` when Boxing consumes them.
 
+## Boxing v1 rule engine
+
+`src/boxing_mode_runner.gd` implements the pure Boxing v1 mode runner. It consumes `ModeRunConfig` chart targets and `ModeTickFrame` normalized input events, then emits mode-core `ModeJudgementEvent`, `ModeScoreDelta`, and `ModeRunFragment` objects. The runner is mode-local and does not depend on the gameplay runner, camera providers, raw landmarks, detector payloads, UI shell, or assembly code.
+
+Authored Boxing targets use an `event` name, `position_sec`, and optional `early_window_sec` / `late_window_sec`. Supported input event names are the six no-arg punch events (`straight_left`, `straight_right`, `uppercut_left`, `uppercut_right`, `hook_left`, `hook_right`) plus guard, squat, and weave enabled/disabled transitions.
+
 ## GodotEnv development flow
 
 This repo uses the AeroBeat Phase 2 GodotEnv package convention.

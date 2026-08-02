@@ -1,6 +1,16 @@
 {
   "$schema": "https://chickensoft.games/schemas/addons.schema.json",
   "addons": {
+    "aerobeat-mode-boxing": {
+      "url": "..",
+      "source": "symlink",
+      "subfolder": "/"
+    },
+    "aerobeat-mode-core": {
+      "url": "../../aerobeat-mode-core",
+      "source": "symlink",
+      "subfolder": "/"
+    },
     "aerobeat-input-core": {
       "url": "../../aerobeat-input-core",
       "subfolder": "/",
