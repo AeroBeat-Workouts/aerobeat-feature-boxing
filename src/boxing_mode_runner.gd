@@ -2,7 +2,7 @@ class_name BoxingModeRunner
 extends "res://addons/aerobeat-mode-core/src/interfaces/mode_runner.gd"
 
 const ModeDescriptor := preload("res://addons/aerobeat-mode-core/src/data_types/mode_descriptor.gd")
-const ModeJudgementEvent := preload("res://addons/aerobeat-mode-core/src/data_types/mode_judgement_event.gd")
+const ModeJudgementEventScript := preload("res://addons/aerobeat-mode-core/src/data_types/mode_judgement_event.gd")
 const ModeRunConfig := preload("res://addons/aerobeat-mode-core/src/data_types/mode_run_config.gd")
 const ModeRunFragment := preload("res://addons/aerobeat-mode-core/src/data_types/mode_run_fragment.gd")
 const ModeScoreDelta := preload("res://addons/aerobeat-mode-core/src/data_types/mode_score_delta.gd")
@@ -129,7 +129,7 @@ func _reset_state() -> void:
 func _load_targets(raw_targets: Variant) -> void:
 	if not raw_targets is Array:
 		return
-	for raw_target in raw_targets:
+	for raw_target: Variant in raw_targets:
 		if not raw_target is Dictionary:
 			continue
 		var target := _normalize_target(raw_target)
@@ -169,11 +169,11 @@ func _judge_input(input_event: Dictionary) -> Array:
 		return []
 
 	var offset := input_position - float(target.position_sec)
-	var judgement := ModeJudgementEvent.RESULT_HIT
+	var judgement := ModeJudgementEventScript.RESULT_HIT
 	if offset < -float(target.early_window_sec):
-		judgement = ModeJudgementEvent.RESULT_EARLY
+		judgement = ModeJudgementEventScript.RESULT_EARLY
 	elif offset > float(target.late_window_sec):
-		judgement = ModeJudgementEvent.RESULT_LATE
+		judgement = ModeJudgementEventScript.RESULT_LATE
 	var accuracy := _accuracy_for(target, offset, judgement)
 	return _apply_judgement(target.id, judgement, input_position, offset, accuracy)
 
@@ -184,7 +184,7 @@ func _judge_expired_targets(position_sec: float) -> Array:
 			continue
 		var miss_at := float(target.position_sec) + float(target.late_window_sec)
 		if position_sec > miss_at:
-			outputs.append_array(_apply_judgement(target.id, ModeJudgementEvent.RESULT_MISS, miss_at, float(target.late_window_sec), 0.0))
+			outputs.append_array(_apply_judgement(target.id, ModeJudgementEventScript.RESULT_MISS, miss_at, float(target.late_window_sec), 0.0))
 	return outputs
 
 func _find_nearest_unjudged_target(event_name: String, input_position: float) -> Dictionary:
@@ -210,7 +210,7 @@ func _apply_judgement(target_id: String, judgement: String, position_sec: float,
 	target.judged = true
 	_targets[index] = target
 
-	var hit := judgement == ModeJudgementEvent.RESULT_HIT
+	var hit := judgement == ModeJudgementEventScript.RESULT_HIT
 	var score_delta := 0
 	var combo_delta := -_combo
 	if hit:
@@ -225,7 +225,7 @@ func _apply_judgement(target_id: String, judgement: String, position_sec: float,
 	_score += score_delta
 
 	var target_ref := _target_ref(target)
-	var judgement_event := ModeJudgementEvent.new({
+	var judgement_event := ModeJudgementEventScript.new({
 		"mode_id": _mode_id,
 		"target_ref": target_ref,
 		"position_sec": position_sec,
@@ -251,7 +251,7 @@ func _apply_judgement(target_id: String, judgement: String, position_sec: float,
 	return [judgement_event, score]
 
 func _accuracy_for(target: Dictionary, offset_sec: float, judgement: String) -> float:
-	if judgement != ModeJudgementEvent.RESULT_HIT:
+	if judgement != ModeJudgementEventScript.RESULT_HIT:
 		return 0.0
 	var window := float(target.late_window_sec) if offset_sec >= 0.0 else float(target.early_window_sec)
 	if window <= 0.0:
